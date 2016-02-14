@@ -16,3 +16,4 @@ celery + redis
 grappelli＋guardian
 
 ## 项目截图
+![image](https://github.com/chenxc86/MtOps2/static/imgs/QQ20160214-3.png)
