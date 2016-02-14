@@ -8,11 +8,12 @@
 4. 数据库建表、改表审核（对接 DBA 接口）
 
 ## 技术栈
-Web 端
+####Web 端
 Django 1.8.2＋Mysql＋sbadmin(基于 bootstrap 开发的管理系统模版）＋jQuery
-异步队列
+####异步队列
 celery + redis
-第三方app
+
+####第三方app
 grappelli＋guardian
 
 ## 项目截图
