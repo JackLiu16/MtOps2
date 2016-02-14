@@ -16,4 +16,8 @@ celery + redis
 grappelli＋guardian
 
 ## 项目截图
+登录页面截图
 ![登陆界面截图](https://github.com/chenxc86/MtOps2/raw/master/static/imgs/QQ20160214-3.png)
+
+列表页截图
+![登陆界面截图](https://github.com/chenxc86/MtOps2/raw/master/static/imgs/QQ20160214-2.png)
