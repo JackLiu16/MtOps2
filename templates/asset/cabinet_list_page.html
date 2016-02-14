@@ -1,0 +1,44 @@
+{% extends "base_table_page.html" %}
+
+{% block title %}MtOps2 | 机柜列表{% endblock %}
+
+{% block page-header %}机柜列表{% endblock %}
+
+{% block panel-heading %}
+    <a href="{% url 'asset-cabinet-create' %}" class="btn btn-success btn-sm {% if not perms.asset.add_cabinetmodel %}disabled{% endif %}" role="button">
+        <i class="fa fa-plus-circle fa-fw"></i>创建机柜
+    </a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>ID</th>
+    <th>机柜编号</th>
+    <th>所属IDC</th>
+    <th>支持双路电</th>
+    <th>U数</th>
+    <th>供电电压</th>
+    <th>提交日期</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td>{{ object.name }}</td>
+    <td>{{ object.idc }}</td>
+    <td>{{ object.get_standby_power_display }}</td>
+    <td>{{ object.u }}</td>
+    <td>{{ object.voltage }}</td>
+    <td>{{ object.put_date }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.asset.change_cabinetmodel %}disabled{% endif %}" role="button" href="{% url 'asset-cabinet-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_cabinetmodel %}disabled{% endif %}" role="button" href="{% url 'asset-cabinet-delete' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block extjs-dt-col %}
+    { "orderable": false, "targets": [5, 6] },
+{% endblock %}

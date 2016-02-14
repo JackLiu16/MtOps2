@@ -1,0 +1,40 @@
+{% extends "base_table_page.html" %}
+
+{% block title %} MtOps2 | 软件资产项目列表 {% endblock %}
+
+{% block page-header %}软件项目{% endblock %}
+
+{% block panel-heading %}
+    <a href="{% url 'asset-project-create' %}" class="btn btn-success btn-sm {% if not perms.asset.add_projectmodel %}disabled{% endif %}" role="button">
+        <i class="fa fa-plus-circle fa-fw"></i>创建项目
+    </a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>项目ID</th>
+    <th>项目名称</th>
+    <th>项目别名</th>
+    <th>创建时间</th>
+    <th>项目备注</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id}}</td>
+    <td>{{ object.project_name}}</td>
+    <td>{{ object.project_alias }}</td>
+    <td>{{ object.put_date }}</td>
+    <td>
+        <a class='click_modal' href="{#{% url 'asset-project-detail' object.id %}#}" data-placement="bottom" title="项目描述">
+            <i class="fa fa-eye fa-fw"></i>点击查看
+        </a>
+    </td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.asset.change_projectmodel %}disabled{% endif %}" role="button" href="{% url 'asset-project-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_projectmodel %}disabled{% endif %}" role="button" href="{% url 'asset-project-delete' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}

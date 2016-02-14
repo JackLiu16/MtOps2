@@ -1,0 +1,58 @@
+{% extends "base_table_page.html" %}
+
+{% block title %}MtOps2 | 主机列表{% endblock %}
+
+{% block page-header %}主机列表{% endblock %}
+
+{% block panel-heading %}
+    <a href="{% url 'asset-host-create' %}" class="btn btn-success btn-sm {% if not perms.asset.add_hostmodel %}disabled{% endif %}" role="button">
+        <i class="fa fa-plus-circle fa-fw"></i>创建主机
+    </a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>主机 ID</th>
+    <th>主机名</th>
+    <th>所属机柜</th>
+    <th>操作系统</th>
+    <th>网卡1 IP</th>
+    <th>网卡2 IP</th>
+    <th>网卡3 IP</th>
+    <th>网卡4 IP</th>
+    <th>网卡1 mac</th>
+    <th>网卡2 mac</th>
+    <th>网卡3 mac</th>
+    <th>网卡4 mac</th>
+    <th>状态</th>
+    <th>添加时间</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td><a href="{% url 'asset-host-detail' object.id %}">{{ object.host_name }}</td>
+    <td>{{ object.cabinet }}</td>
+    <td>{{ object.os }}</td>
+    <td>{{ object.ip1 }}</td>
+    <td>{{ object.ip2 }}</td>
+    <td>{{ object.ip3 }}</td>
+    <td>{{ object.ip4 }}</td>
+    <td>{{ object.mac1 }}</td>
+    <td>{{ object.mac2 }}</td>
+    <td>{{ object.mac3 }}</td>
+    <td>{{ object.mac4 }}</td>
+    <td>{{ object.get_status_display }}</td>
+    <td>{{ object.put_date }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.asset.change_hostmodel %}disabled{% endif %}" role="button" href="{% url 'asset-host-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_hostmodel %}disabled{% endif %}" role="button" href="{% url 'asset-host-delete' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block extjs-dt-col %}
+    {"targets": [6, 7, 8, 10, 11, 12], "visible": false},
+{% endblock %}

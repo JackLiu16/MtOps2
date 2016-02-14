@@ -1,0 +1,57 @@
+{% extends "base_form_page.html" %}
+
+{% block title %}MtOps2 | 创建代码上线任务{% endblock %}
+
+{% block page-header %} 创建代码上线任务{% endblock %}
+
+{% block custom_input %}
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.project.id_for_label }}" class="col-lg-2 control-label">{{ form.project.label }}</label>
+        <div class="col-lg-8">
+            {% if form.project.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.project.errors }}
+                </div>
+            {% endif %}
+            <select class="form-control" name="project">
+                {% for project in projects %}
+                    <option value="{{ project.id }}">{{ project.project_name }}</option>
+                {% endfor %}
+            </select>
+            {% if form.project.help_text %}
+                <p class="help-block">{{ form.project.help_text }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <label for="{{ form.code_version.id_for_label }}" class="col-lg-2 control-label">{{ form.code_version.label }}</label>
+        <div class="col-lg-8">
+            {% if form.code_version.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.code_version.errors }}
+                </div>
+            {% endif %}
+            {{ form.code_version }}
+            {% if form.code_version.help_text %}
+                <p class="help-block">{{ form.code_version.help_text }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <label for="{{ form.remark.id_for_label }}" class="col-lg-2 control-label">{{ form.code_version.label }}</label>
+        <div class="col-lg-8">
+            {% if form.remark.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.remark.errors }}
+                </div>
+            {% endif %}
+            {{ form.remark }}
+            {% if form.remark.help_text %}
+                <p class="help-block">{{ form.remark.help_text }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

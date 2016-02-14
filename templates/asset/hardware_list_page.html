@@ -1,0 +1,56 @@
+{% extends "base_table_page.html" %}
+
+{% block title %}MtOps2 | 硬件列表{% endblock %}
+
+{% block page-header %}硬件列表{% endblock %}
+
+{% block panel-heading %}
+    <a href="{% url 'asset-hardware-create' %}" class="btn btn-success btn-sm {% if not perms.asset.add_hardwaremodel %}disabled{% endif %}" role="button">
+        <i class="fa fa-plus-circle fa-fw"></i>创建硬件
+    </a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>ID</th>
+    <th>型号</th>
+    <th>cpu型号</th>
+    <th>cpu个数</th>
+    <th>内存／G</th>
+    <th>磁盘类型</th>
+    <th>磁盘个数</th>
+    <th>存储容量／G</th>
+    <th>网卡速率</th>
+    <th>网卡个数</th>
+    <th>远程管理支持</th>
+    <th>双电支持</th>
+    <th>添加时间</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td>{{ object.model }}</td>
+    <td>{{ object.cpu }}</td>
+    <td>{{ object.cpu_total }}</td>
+    <td>{{ object.memory }}</td>
+    <td>{{ object.disk_type }}</td>
+    <td>{{ object.disk_total }}</td>
+    <td>{{ object.storage }}</td>
+    <td>{{ object.network_card_rate }}</td>
+    <td>{{ object.network_card_total }}</td>
+    <td>{{ object.get_drac_display }}</td>
+    <td>{{ object.get_standby_power_display }}</td>
+    <td>{{ object.put_date }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.asset.change_hardwaremodel %}disabled{% endif %}" role="button" href="{% url 'asset-hardware-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_hardwaremodel %}disabled{% endif %}" role="button" href="{% url 'asset-hardware-delete' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block extjs-dt-col %}
+    { "orderable": false, "targets": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]},
+{% endblock %}

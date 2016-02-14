@@ -1,0 +1,10 @@
+/*
+project fonts css
+*/
+
+@font-face {
+    font-family: "site-logo-font";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/static/fonts/crazy_diamond.otf");
+}

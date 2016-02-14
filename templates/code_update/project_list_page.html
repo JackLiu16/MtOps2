@@ -1,0 +1,40 @@
+{% extends "base_table_page.html" %}
+
+{% block title %} MtOps2 | 上线项目列表 {% endblock %}
+
+{% block page-header %}上线项目{% endblock %}
+
+{% block thead-tr-th %}
+    <th>项目ID</th>
+    <th>项目名称</th>
+    <th>项目别名</th>
+    <th>绑定脚本</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.project.id }}</td>
+    <td>{{ object.project.project_name }}</td>
+    <td>{{ object.project.project_alias }}</td>
+    <td>{{ object.run_script }}</td>
+    <td>
+        <a title="绑定脚本" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.code_update.change_projectextmodel %}disabled{% endif %}" role="button" href="{% url 'code-project-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>绑定脚本
+        </a>
+    </td>
+{% endblock %}
+
+{% block extend-js %}
+    {{ block.super }}
+    <script>
+        $(function () { // 激活表格排序插件
+            $('#myTable').DataTable({
+                "pageLength": 50,
+                "order": [[ 0, "desc" ]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 4 },
+                ],
+            });
+        });
+    </script>
+{% endblock %}

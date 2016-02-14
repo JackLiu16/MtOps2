@@ -1,0 +1,123 @@
+{% extends "base_page.html" %}
+
+{% block title %}MtOps2 | 用户信息{% endblock %}
+
+{% block page-header %}用户信息{% endblock %}
+
+{% block page-content %}
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    账号信息
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td><strong>用户名</strong></td>
+                                    <td>{{ user.get_username }}</td>
+                                </tr>
+                                <tr>
+                                    <td>密码</td>
+                                    <td>
+                                        <a title="密码修改" href="{% url 'djauth_ext-userpwd-change' %}" class="btn btn-success btn-xs" role="button">密码修改</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>所属组</td>
+                                    <td>
+                                        {% for group in user.groups.all %}
+                                          {{  group.name }} / 
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>是否激活</td>
+                                    <td>
+                                        {% if user.is_active %}
+                                            是
+                                        {% else %}
+                                            否
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>访问admin后台权限</td>
+                                    <td>
+                                        {% if user.is_staff %}
+                                            是
+                                        {% else %}
+                                            否
+                                        {% endif %}
+                                   </td>
+                                </tr>
+                                <tr>
+                                    <td>超级用户状态</td>
+                                    <td>
+                                        {% if user.is_superuser %}
+                                            是
+                                        {% else %}
+                                            否
+                                        {% endif %}
+                                   </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    个人信息
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>名字</td>
+                                    <td>{{ user.first_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>姓氏</td>
+                                    <td>{{ user.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>邮件</td>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    登录信息
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>最近登录</td>
+                                    <td>{{ user.last_login }}</td>
+                                </tr>
+                                <tr>
+                                    <td>注册时间</td>
+                                    <td>{{ user.date_joined }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

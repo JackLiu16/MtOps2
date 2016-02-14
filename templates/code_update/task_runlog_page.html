@@ -1,0 +1,20 @@
+{% extends "base_page.html" %}
+
+{% block title %}MtOps2 | 上线任务执行日志{% endblock %}
+
+{% block extend-css %}
+    <style type="text/css">
+        .terminal {
+            background-color:#222;
+            color:#00FF00;
+        }
+    </style>
+{% endblock %}
+
+{% block page-header %}上线任务执行日志{% endblock %}
+
+{% block page-content %}
+    <div class="terminal">
+        <p>{{ object.script_output_log|linebreaks }}</p>
+    </div>
+{% endblock %}

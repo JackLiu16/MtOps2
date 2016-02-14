@@ -1,0 +1,19 @@
+{% csrf_token %}
+
+{% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}" class="col-lg-2 control-label">{{ field.label }}</label>
+        <div class="col-lg-8">
+                {% if field.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                    <div class="alert alert-danger" role="alert">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+                {{ field }}
+                {% if field.help_text %}
+                    <p class="help-block">{{ field.help_text }}</p>
+                {% endif %}
+        </div>
+    </div>
+    <hr />
+{% endfor %}

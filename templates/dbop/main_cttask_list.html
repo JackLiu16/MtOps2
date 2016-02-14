@@ -1,0 +1,80 @@
+{% extends "project_base_table.html" %}
+
+{% block title %} MtOps | 数据库建表任务 {% endblock %}
+
+{% block control_area %}
+    {% if perms.dbop.add_cttaskmodel or perms.dbop.delete_cttaskmodel %}
+        <div class="control-area">
+            {% if perms.dbop.add_cttaskmodel %}
+                <a href="{% url 'dbop-ct_task-create' %}" class="btn btn-success btn-sm" role="button">创建任务</a>
+            {% endif %}
+            {% if perms.dbop.delete_cttaskmodel %}
+                <a href="#" class="btn btn-danger btn-sm" role="button">删除所选项目</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block thead_th %}
+    <th>任务标题</th>
+    <th>任务责任人</th>
+    <th>DBA 责任人</th>
+    <th>数据库</th>
+    <th>IP</th>
+    <th>端口</th>
+    <th>创建时间</th>
+    <th>更多</th>
+    <th>进度</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody_td %}
+    <td>{{ object.task_title }}</td>
+    <td>{{ object.user }}</td>
+    <td>{{ object.dba_user }}</td>
+    <td>{{ object.db_name }}</td>
+    <td>{{ object.host_ip }}</td>
+    <td>{{ object.port }}</td>
+    <td>{{ object.put_date }}</td>
+    <td>
+        <a class='click_modal' href="{#{% url 'asset-project-detail' object.id %}#}" data-placement="bottom" title="任务详情">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 点击查看
+        </a>
+    </td>
+    <td>{{ object.get_schedule_display }}</td>
+    <td>
+        {% if perms.dbop.change_ct_taskmodel %}
+            <a title="编辑" id="edit_{{ object.id }}" href="{% url 'dbop-ct_task-update' object.id %}">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </a>
+        {% endif %}
+        {% if perms.dbop.add_ctsqlmodel %}
+            <a title="添加任务SQL" href="{% url 'dbop-ct_task-addsql' object.id %}">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </a>
+        {% endif %}
+        {% if perms.dbop.delete_cttaskmodel %}
+            <a title="删除" id="del_{{ object.id }}" href="{% url 'dbop-ct_task-delete' object.id %}">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </a>
+        {% endif %}
+    </td>
+{% endblock %}
+
+{% block extend_js %}
+    {{ block.super }}
+    <script>
+        $(function () { // 激活表格排序插件
+            $('#myTable').DataTable({
+                "pageLength": 50,
+                "order": [[ 7, "desc" ]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 0 },
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 8 },
+                    { "orderable": false, "targets": 10 },
+                ],
+            });
+        });
+    </script>
+{% endblock %}

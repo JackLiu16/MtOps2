@@ -1,0 +1,65 @@
+{% extends "base_table_page.html" %}
+
+{% block title %} MtOps2 | 项目上线任务 {% endblock %}
+
+{% block page-header %}项目上线任务{% endblock %}
+
+{% block panel-heading %}
+    <a href="{% url 'code-task-create' %}" class="btn btn-success btn-sm {% if not perms.code_update.add_taskmodel %}disabled{% endif %}" role="button">
+        <i class="fa fa-plus-circle fa-fw"></i>创建任务
+    </a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>任务ID</th>
+    <th>项目</th>
+    <th>版本</th>
+    <th>责任人</th>
+    <th>操作人</th>
+    <th>创建时间</th>
+    <th>更新次数</th>
+    <th>回滚次数</th>
+    <th>进度</th>
+    <th>任务状态</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id}}</td>
+    <td>{{ object.project.project_name}}</td>
+    <td>{{ object.code_version }}</td>
+    <td>{{ object.user }}</td>
+    <td>{{ object.yw_user }}</td>
+    <td>{{ object.put_date }}</td>
+    <td>{{ object.update_count }}</td>
+    <td>{{ object.rollback_count }}</td>
+    <td>{{ object.get_schedule_display }}</td>
+    <td>{{ object.get_status_display }}</td>
+    <td>
+        <a title="编辑" class="btn btn-success btn-xs {% if not perms.code_update.change_taskmodel %}disabled{% endif %}" role="button" href="#">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" class="btn btn-danger btn-xs {% if not perms.code_update.delete_taskmodel %}disabled{% endif %}" role="button" href="#">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+        <a title="操作LOG" id="detail_{{ object.id }}" class="btn btn-info btn-xs" role="button" href="{% url 'code-task-runlog' object.id %}">
+            <i class="fa fa-print fw"></i>打印LOG
+        </a>
+    </td>
+{% endblock %}
+
+{% block extend-js %}
+    {{ block.super }}
+    <script>
+        $(function () { // 激活表格排序插件
+            $('#myTable').DataTable({
+                //responsive: true,
+                "pageLength": 50,
+                "order": [[ 0, "desc" ]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 10 },
+                ],
+            });
+        });
+    </script>
+{% endblock %}

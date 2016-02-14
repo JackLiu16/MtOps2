@@ -1,0 +1,72 @@
+{% extends "base_page.html" %}
+
+{% block title %}MtOps2 | 美图运维系统表格基础模版{% endblock %}
+
+{% block extend-css %}
+    <style>
+        th, td { white-space: nowrap; }
+    </style>
+    <link rel="stylesheet" href="/static/css/plugins/dataTables/dataTables.bootstrap.min.css">
+{% endblock %}
+
+{% block page-header %}表格基础模版{% endblock %}
+
+{% block page-content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {% block panel-heading %}{% endblock %}
+    </div>
+    <div class="panel-body">
+    <table class="table table-bordered table-hover" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="checkAll"></th>
+                </th>
+                {% block thead-tr-th %}{% endblock %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="tableRecord" value=""></th>
+                    </td>
+                    {% block tbody-tr-td %}{% endblock %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extend-js %}
+    <script src="/static/js/plugins/dataTables/jquery.dataTables.min.js"></script>
+    <script src="/static/js/plugins/dataTables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "dom": '<"row"<"col-lg-4 toolbar"><"col-lg-4" l><"col-lg-4" f>>r<"row"<"col-lg-12" t>><"row"<"col-lg-6"i><"col-lg-6"p>><"clear">',
+                "language": { // 异步加载插件中文显示
+                    "url": "/static/js/plugins/dataTables/plug-ins/Chinese.json"
+                },
+                "pagingType": "full_numbers", // 设置插件分页按钮的显示形式
+                "scrollX": true, // 激活插件水平方向滚动条
+                "pageLength": 50, // 设置插件初始化单页显示的记录条目数
+                "order": [[1, "desc"]], // 插件初始化以索引为1的列进行排序
+                "columnDefs": [
+                    { "orderable": false, "targets": [0, -1]}, // 禁用索引为0、-1（最后一列）的列的排序
+                    {% block extjs-dt-col %}{% endblock %}
+                ],
+            });
+            $("div.panel-heading").append($(
+                '<a title="隐藏列／显示列" class="btn btn-default btn-sm" role="button">'+
+                    '<i class="fa fa-eye fa-fw" ></i>/'+
+                    '<i class="fa fa-eye-slash fa-fw" ></i>'+
+                '</a>'
+                )
+            );
+        });
+    </script>
+{% endblock %}

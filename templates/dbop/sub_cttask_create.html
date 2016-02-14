@@ -1,0 +1,61 @@
+{% extends 'project_base_form.html' %}
+
+{% block title %} MtOps | 添加普通建表任务SQL {% endblock %}
+
+{% block custom_input %}
+    {% csrf_token %}
+    {{ formset.management_form }}
+        {{ formset.non_form_errors }}
+    {% for form in formset %}
+        <div class="form-group">
+            <label for="{{ form.ct_sql.id_for_label }}" class="col-xs-2 control-label">{{ form.ct_sql.label }}</label>
+            <div class="col-xs-10">
+                {% if form.ct_sql.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.ct_sql.errors }}
+                    </div>
+                {% endif %}
+                {{ form.ct_sql }}
+                {% if form.ct_sql.help_text %}
+                    <p class="help-block">{{ form.ct_sql.help_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.core_sql.id_for_label }}" class="col-xs-2 control-label">{{ form.core_sql.label }}</label>
+            <div class="col-xs-10">
+                {% if form.core_sql.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.core_sql.errors }}
+                    </div>
+                {% endif %}
+                {{ form.core_sql }}
+                {% if form.core_sql.help_text %}
+                    <p class="help-block">{{ form.core_sql.help_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.rw_io.id_for_label }}" class="col-xs-2 control-label">{{ form.rw_io.label }}</label>
+            <div class="col-xs-10">
+                {% if form.rw_io.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.rw_io.errors }}
+                    </div>
+                {% endif %}
+                {{ form.rw_io }}
+                {% if form.rw_io.help_text %}
+                    <p class="help-block">{{ form.rw_io.help_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% if formset.can_delete %}
+            <div class="checkbox">
+                <label>
+                {{ form.DELETE }} 删除表单
+                </label>
+            </div>
+        {% endif %}
+        <hr />
+    {% endfor %}
+{% endblock %}

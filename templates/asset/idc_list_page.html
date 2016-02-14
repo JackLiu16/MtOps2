@@ -1,0 +1,52 @@
+{% extends "base_table_page.html" %}
+
+{% block title %}MtOps2 | 机房列表{% endblock %}
+
+{% block page-header %}机房列表{% endblock %}
+
+{% block panel-heading %}
+    <a href="{% url 'asset-idc-create' %}" class="btn btn-success btn-sm {% if not perms.asset.add_idcmodel %}disabled{% endif %}" role="button">
+        <i class="fa fa-plus-circle fa-fw"></i>创建机房
+    </a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>ID</th>
+    <th>名称</th>
+    <th>地址</th>
+    <th>联系人</th>
+    <th>电话</th>
+    <th>链路类型</th>
+    <th>带宽／Gbps</th>
+    <th>机柜数量</th>
+    <th>供电类型</th>
+    <th>提交日期</th>
+    <th>状态</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td>{{ object.name }}</td>
+    <td>{{ object.address }}</td>
+    <td>{{ object.contacts }}</td>
+    <td>{{ object.phone }}</td>
+    <td>{{ object.get_link_type_display }}</td>
+    <td>{{ object.bandwidth }}</td>
+    <td>{{ object.cabinet_total }}</td>
+    <td>{{ object.get_power_type_display }}</td>
+    <td>{{ object.put_date }}</td>
+    <td>{{ object.get_idc_status_display }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.asset.change_idcmodel %}disabled{% endif %}" role="button" href="{% url 'asset-idc-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_idcmodel %}disabled{% endif %}" role="button" href="{% url 'asset-idc-delete' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block extjs-dt-col %}
+    { "orderable": false, "targets": [2, 3, 5, 7, 8]},
+{% endblock %}

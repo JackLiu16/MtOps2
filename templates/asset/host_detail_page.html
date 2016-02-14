@@ -1,0 +1,171 @@
+{% extends "base_page.html" %}
+
+{% block title %}MtOps2 | 主机详情页面{% endblock %}
+
+{% block page-header %}{{ object.host_name }}{% endblock %}
+
+{% block page-content %}
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    硬件配置
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td><strong>型号</strong></td>
+                                    <td>{{ object.hardware.model }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>cpu</strong></td>
+                                    <td>{{ object.hardware.cpu }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>cpu 颗数</strong></td>
+                                    <td>{{ object.hardware.cpu_total }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>内存</strong></td>
+                                    <td>{{ object.hardware.memory }}G</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>磁盘类型</strong></td>
+                                    <td>{{ object.hardware.disk_type }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>磁盘数</strong></td>
+                                    <td>{{ object.hardware.disk_total }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>存储容量</strong></td>
+                                    <td>{{ object.hardware.storage }}G</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡速率</strong></td>
+                                    <td>{{ object.hardware.network_card_rate }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡数量</strong></td>
+                                    <td>{{ object.hardware.network_card_total }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>远程管理卡支持</strong></td>
+                                    <td>{{ object.hardware.get_drac_display }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>双电支持</strong></td>
+                                    <td>{{ object.hardware.get_standby_power_display }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    位置信息
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td><strong>机房</strong></td>
+                                    <td>{{ object.cabinet.idc.name }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>机柜</strong></td>
+                                    <td>{{ object.cabinet.name }}</td>
+                                </tr>
+                            </tbody>
+                       </table>
+                   </div>
+               </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    状态信息
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td><strong>主机名</strong></td>
+                                    <td>{{ object.host_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>服务码</strong></td>
+                                    <td>{{ object.sn }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>操作系统</strong></td>
+                                    <td>{{ object.os }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡 1 ip 地址</strong></td>
+                                    <td>{{ object.ip1 }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡 2 ip 地址</strong></td>
+                                    <td>{{ object.ip2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡 3 ip 地址</strong></td>
+                                    <td>{{ object.ip3 }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡 4 ip 地址</strong></td>
+                                    <td>{{ object.ip4 }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡 1 mac 地址</strong></td>
+                                    <td>{{ object.mac1 }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡 2 mac 地址</strong></td>
+                                    <td>{{ object.mac2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡 3 mac 地址</strong></td>
+                                    <td>{{ object.mac3 }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>网卡 4 mac 地址</strong></td>
+                                    <td>{{ object.mac4 }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>状态</strong></td>
+                                    <td>{{ object.get_status_display }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>添加时间</strong></td>
+                                    <td>{{ object.put_date }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    主机历史
+                </div>
+                <div class="panel-body">
+                    <p>
+                    {% for history in object.hosthistorymodel_set.all %}
+                        {{history.history}}
+                    {% endfor %}
+</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
